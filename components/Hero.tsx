@@ -1,54 +1,98 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import type { MouseEvent } from "react";
+import { Button } from "@/components/Button";
 import { CodeWindow } from "@/components/CodeWindow";
-import { MCMonogram } from "@/components/MCMonogram";
+import { Glow } from "@/components/Glow";
+import { NoiseOverlay } from "@/components/NoiseOverlay";
 
 export function Hero() {
-  return (
-    <section className="relative min-h-screen overflow-hidden pt-32 sm:pt-36 lg:pt-40">
-      <div className="pointer-events-none absolute left-1/2 top-24 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-accent/20 blur-[150px] sm:h-[44rem] sm:w-[44rem]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-background" />
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 80, damping: 24, mass: 0.4 });
+  const smoothY = useSpring(mouseY, { stiffness: 80, damping: 24, mass: 0.4 });
+  const editorX = useTransform(smoothX, [-1, 1], [-12, 12]);
+  const editorY = useTransform(smoothY, [-1, 1], [10, -10]);
+  const glowX = useTransform(smoothX, [-1, 1], [-28, 28]);
+  const glowY = useTransform(smoothY, [-1, 1], [20, -20]);
 
-      <div className="section-shell relative flex min-h-[calc(100vh-8rem)] flex-col items-center justify-center pb-20 text-center">
+  function handleMouseMove(event: MouseEvent<HTMLElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    mouseX.set(x);
+    mouseY.set(y);
+  }
+
+  function handleMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
+  return (
+    <section
+      className="relative h-screen overflow-hidden bg-background pt-24 sm:pt-28 lg:pt-32"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="pointer-events-none absolute inset-0 text-white/[0.045]">
+        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <pattern id="hero-grid" width="72" height="72" patternUnits="userSpaceOnUse">
+              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="currentColor" strokeWidth="1" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hero-grid)" />
+        </svg>
+      </div>
+
+      <motion.div className="pointer-events-none absolute right-[8%] top-[22%] h-[34rem] w-[34rem]" style={{ x: glowX, y: glowY }}>
+        <Glow className="inset-0" />
+      </motion.div>
+      <NoiseOverlay />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_48%,rgba(255,122,26,0.12),transparent_34rem),radial-gradient(circle_at_center,transparent_0%,rgba(9,9,11,0.78)_78%)]" />
+
+      <div className="section-shell relative z-10 grid h-full items-center gap-12 pb-10 lg:grid-cols-[46fr_54fr] lg:gap-16 lg:pb-14">
         <motion.div
-          initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+          initial={{ opacity: 0, y: 28, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ delay: 2.45, duration: 0.72, ease: "easeOut" }}
-          className="flex flex-col items-center"
+          transition={{ delay: 2.32, duration: 0.72, ease: "easeOut" }}
+          className="max-w-[34rem]"
         >
-          <div className="grid h-14 w-14 place-items-center rounded-full border border-white/[0.08] bg-white/[0.03] shadow-[0_0_60px_rgba(255,122,26,0.14)] backdrop-blur-xl">
-            <MCMonogram className="h-9 w-9" />
-          </div>
-          <p className="eyebrow mt-8">markclaude.sk</p>
-          <h1 className="mt-7 max-w-5xl text-5xl font-semibold tracking-tight text-white sm:text-7xl lg:text-[5.45rem]">
-            Moderné weby,<br /> ktoré majú charakter.
+          <p className="eyebrow">markclaude.sk</p>
+          <h1 className="mt-7 text-[3.35rem] font-semibold leading-[0.94] tracking-tight text-white sm:text-7xl lg:text-[5.8rem] xl:text-[6rem]">
+            Moderné weby,<br />
+            ktoré majú<br />
+            charakter.
           </h1>
-          <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-muted sm:text-xl">
+          <p className="mt-7 max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8 lg:max-w-[38rem]">
             Od prvého návrhu až po posledný riadok kódu tvorím rýchle, spoľahlivé a moderné digitálne riešenia.
           </p>
 
-          <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
-            <a
-              href="#projects"
-              className="rounded-full bg-accent px-7 py-3.5 text-center text-sm font-semibold text-white shadow-orange transition hover:bg-[#ff8a35]"
-            >
-              Pozrieť projekty
-            </a>
-            <a
-              href="#contact"
-              className="rounded-full border border-white/[0.08] bg-white/[0.03] px-7 py-3.5 text-center text-sm font-semibold text-white transition hover:border-accent/50 hover:text-accent"
-            >
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Button href="#projects">Pozrieť projekty</Button>
+            <Button href="#contact" variant="secondary">
               Kontaktovať
-            </a>
+            </Button>
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.98, filter: "blur(8px)" }}
+          initial={{ opacity: 0, y: 34, scale: 0.99, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          transition={{ delay: 2.78, duration: 0.72, ease: "easeOut" }}
-          className="mt-14 w-full max-w-3xl lg:max-w-2xl lg:self-end lg:pr-10"
+          transition={{ delay: 2.5, duration: 0.78, ease: "easeOut" }}
+          style={{ x: editorX, y: editorY }}
+          className="relative hidden justify-self-end lg:block lg:w-full lg:max-w-[43rem]"
+        >
+          <CodeWindow />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ delay: 2.5, duration: 0.68, ease: "easeOut" }}
+          className="relative lg:hidden"
         >
           <CodeWindow compact />
         </motion.div>

@@ -18,7 +18,6 @@ type CodeWindowProps = {
 export function CodeWindow({ compact = false }: CodeWindowProps) {
   return (
     <div data-code-window="true" className="relative mx-auto w-full lg:mx-0">
-      <div className="absolute -inset-10 rounded-full bg-accent/10 blur-[100px]" />
       <div className="relative overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-[#0b0b0d]/82 shadow-[0_32px_120px_rgba(0,0,0,0.58)] backdrop-blur-xl">
         <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4 sm:px-6">
           <div className="flex items-center gap-2.5">
@@ -29,9 +28,9 @@ export function CodeWindow({ compact = false }: CodeWindowProps) {
           <p className="text-xs text-white/38">developer.config.ts</p>
         </div>
 
-        <div className={compact ? "relative p-5 sm:p-6" : "relative p-5 sm:p-8"}>
+        <div className={compact ? "relative p-5 sm:p-6" : "relative p-6 sm:p-8 lg:p-10"}>
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.025)_1px,transparent_1px)] bg-[length:100%_2rem]" />
-          <div className="relative space-y-4 font-mono text-[12px] leading-6 sm:text-[14px]">
+          <div className="relative space-y-4 font-mono text-[12px] leading-6 sm:text-[14px] lg:text-[15px]">
             {lines.map((line, index) => (
               <motion.div
                 key={line.code}
