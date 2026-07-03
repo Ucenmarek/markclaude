@@ -19,7 +19,7 @@ const variants: Record<ButtonVariant, string> = {
 
 function getButtonClassName(variant: ButtonVariant, className: string) {
   return (
-    "inline-flex items-center justify-center rounded-full border px-7 py-3.5 text-sm font-semibold transition duration-300 hover:-translate-y-1 " +
+    "inline-flex items-center justify-center rounded-full border px-7 py-3.5 text-sm font-semibold transition duration-300 hover:-translate-y-0.5 " +
     variants[variant] +
     " " +
     className

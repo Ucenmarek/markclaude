@@ -5,17 +5,22 @@ import type { MouseEvent } from "react";
 import { Button } from "@/components/Button";
 import { CodeWindow } from "@/components/CodeWindow";
 import { Glow } from "@/components/Glow";
+import { MCMonogram } from "@/components/MCMonogram";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
+
+const headlineLines = ["Moderné weby,", "ktoré majú", "charakter."];
 
 export function Hero() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 80, damping: 24, mass: 0.4 });
-  const smoothY = useSpring(mouseY, { stiffness: 80, damping: 24, mass: 0.4 });
-  const editorX = useTransform(smoothX, [-1, 1], [-12, 12]);
-  const editorY = useTransform(smoothY, [-1, 1], [10, -10]);
-  const glowX = useTransform(smoothX, [-1, 1], [-28, 28]);
-  const glowY = useTransform(smoothY, [-1, 1], [20, -20]);
+  const smoothX = useSpring(mouseX, { stiffness: 70, damping: 26, mass: 0.45 });
+  const smoothY = useSpring(mouseY, { stiffness: 70, damping: 26, mass: 0.45 });
+  const editorX = useTransform(smoothX, [-1, 1], [-8, 8]);
+  const editorY = useTransform(smoothY, [-1, 1], [8, -8]);
+  const glowX = useTransform(smoothX, [-1, 1], [-30, 30]);
+  const glowY = useTransform(smoothY, [-1, 1], [30, -30]);
+  const logoX = useTransform(smoothX, [-1, 1], [-10, 10]);
+  const logoY = useTransform(smoothY, [-1, 1], [8, -8]);
 
   function handleMouseMove(event: MouseEvent<HTMLElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -32,66 +37,102 @@ export function Hero() {
 
   return (
     <section
-      className="relative h-screen overflow-hidden bg-background pt-24 sm:pt-28 lg:pt-32"
+      className="relative min-h-screen overflow-hidden bg-[#09090B] pt-28 sm:pt-32 lg:pt-36"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="pointer-events-none absolute inset-0 text-white/[0.045]">
+      <div className="pointer-events-none absolute inset-0 text-white/[0.02]">
         <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
-            <pattern id="hero-grid" width="72" height="72" patternUnits="userSpaceOnUse">
-              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="currentColor" strokeWidth="1" />
+            <pattern id="hero-grid" width="84" height="84" patternUnits="userSpaceOnUse">
+              <path d="M 84 0 L 0 0 0 84" fill="none" stroke="currentColor" strokeWidth="1" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#hero-grid)" />
         </svg>
       </div>
 
-      <motion.div className="pointer-events-none absolute right-[8%] top-[22%] h-[34rem] w-[34rem]" style={{ x: glowX, y: glowY }}>
+      <motion.div
+        className="pointer-events-none absolute left-2 top-24 z-[1] h-44 w-44 opacity-50 sm:left-8 sm:top-28 sm:h-56 sm:w-56 lg:left-[7%] lg:top-[17%] lg:h-60 lg:w-60"
+        style={{ x: logoX, y: logoY }}
+        aria-hidden="true"
+      >
+        <MCMonogram tone="orange" className="h-full w-full opacity-95 drop-shadow-[0_0_42px_rgba(255,122,26,0.42)]" />
+      </motion.div>
+
+      <motion.div
+        className="pointer-events-none absolute right-[-12rem] top-[23%] hidden h-[52rem] w-[52rem] opacity-100 sm:block lg:right-[1%]"
+        style={{ x: glowX, y: glowY }}
+      >
         <Glow className="inset-0" />
       </motion.div>
+      <motion.div
+        className="pointer-events-none absolute right-[7%] top-[11%] hidden h-32 w-32 rounded-full bg-accent/22 blur-[54px] sm:block"
+        style={{ x: glowX, y: glowY }}
+        aria-hidden="true"
+      />
       <NoiseOverlay />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_48%,rgba(255,122,26,0.12),transparent_34rem),radial-gradient(circle_at_center,transparent_0%,rgba(9,9,11,0.78)_78%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_74%_48%,rgba(255,122,26,0.15),transparent_40rem),radial-gradient(circle_at_15%_28%,rgba(255,122,26,0.075),transparent_18rem),linear-gradient(180deg,rgba(9,9,11,0.04),rgba(9,9,11,0.9)_95%)]" />
 
-      <div className="section-shell relative z-10 grid h-full items-center gap-12 pb-10 lg:grid-cols-[46fr_54fr] lg:gap-16 lg:pb-14">
-        <motion.div
-          initial={{ opacity: 0, y: 28, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ delay: 2.32, duration: 0.72, ease: "easeOut" }}
-          className="max-w-[34rem]"
-        >
-          <p className="eyebrow">markclaude.sk</p>
-          <h1 className="mt-7 text-[3.35rem] font-semibold leading-[0.94] tracking-tight text-white sm:text-7xl lg:text-[5.8rem] xl:text-[6rem]">
-            Moderné weby,<br />
-            ktoré majú<br />
-            charakter.
+      <div className="section-shell relative z-10 grid min-h-[calc(100vh-8rem)] items-center gap-20 pb-24 sm:pb-28 lg:grid-cols-[0.88fr_1.12fr] lg:gap-24 lg:pb-32">
+        <div className="relative max-w-[42rem] lg:pl-8 xl:pl-14">
+          <h1 className="mt-8 text-[clamp(2.35rem,9.5vw,3.95rem)] font-normal leading-[0.96] tracking-tight text-white sm:text-[4.65rem] lg:text-[5rem] xl:text-[5.45rem]">
+            {headlineLines.map((line, index) => (
+              <motion.span
+                key={line}
+                className="block whitespace-nowrap"
+                initial={{ opacity: 0, y: 32, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ delay: 2.24 + index * 0.12, duration: 0.72, ease: "easeOut" }}
+              >
+                {index === headlineLines.length - 1 ? (
+                  <>
+                    charakter<span className="text-accent">.</span>
+                  </>
+                ) : (
+                  line
+                )}
+              </motion.span>
+            ))}
           </h1>
-          <p className="mt-7 max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8 lg:max-w-[38rem]">
-            Od prvého návrhu až po posledný riadok kódu tvorím rýchle, spoľahlivé a moderné digitálne riešenia.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 22, filter: "blur(7px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: 2.68, duration: 0.62, ease: "easeOut" }}
+            className="mt-9 max-w-[40rem] text-base leading-7 text-muted sm:text-lg sm:leading-8"
+          >
+            Od prvého návrhu až po posledný riadok kódu tvorím rýchle webové stránky, aplikácie a interné systémy, ktoré pomáhajú firmám rásť.
+          </motion.p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <motion.div
+            initial={{ opacity: 0, y: 20, filter: "blur(7px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: 2.84, duration: 0.58, ease: "easeOut" }}
+            className="mt-11 flex flex-col gap-3 sm:flex-row"
+          >
             <Button href="#projects">Pozrieť projekty</Button>
             <Button href="#contact" variant="secondary">
               Kontaktovať
             </Button>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 42, scale: 0.96, filter: "blur(12px)" }}
+          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          transition={{ delay: 3.0, duration: 0.82, ease: "easeOut" }}
+          style={{ x: editorX, y: editorY }}
+          className="relative hidden justify-self-end [perspective:1200px] lg:block lg:w-full lg:max-w-[47rem]"
+        >
+          <div className="origin-center" style={{ transform: "rotateY(-7deg) rotateZ(1.4deg) scale(1.04)" }}>
+            <CodeWindow />
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 34, scale: 0.99, filter: "blur(10px)" }}
+          initial={{ opacity: 0, y: 34, scale: 0.98, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          transition={{ delay: 2.5, duration: 0.78, ease: "easeOut" }}
-          style={{ x: editorX, y: editorY }}
-          className="relative hidden justify-self-end lg:block lg:w-full lg:max-w-[43rem]"
-        >
-          <CodeWindow />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ delay: 2.5, duration: 0.68, ease: "easeOut" }}
+          transition={{ delay: 3.0, duration: 0.72, ease: "easeOut" }}
           className="relative lg:hidden"
         >
           <CodeWindow compact />

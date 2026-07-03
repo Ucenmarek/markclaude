@@ -25,14 +25,11 @@ export function Navbar() {
     >
       <motion.nav
         style={{ backgroundColor: background, borderColor }}
-        className="section-shell flex h-[4.5rem] items-center justify-between rounded-full border shadow-glass backdrop-blur-2xl"
+        className="section-shell flex h-[6rem] items-center justify-between rounded-full border shadow-glass backdrop-blur-2xl"
       >
         <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="markclaude.sk domov">
-          <span className="grid h-10 w-10 place-items-center rounded-full border border-white/[0.08] bg-white/[0.03] transition group-hover:border-accent/40">
-            <MCMonogram className="h-7 w-7" />
-          </span>
-          <span className="hidden text-sm font-semibold tracking-tight text-white/90 sm:block">
-            markclaude<span className="text-accent">.sk</span>
+          <span className="grid h-20 w-20 place-items-center rounded-full border border-white/[0.08] bg-white/[0.03] transition group-hover:border-accent/40">
+            <MCMonogram className="h-14 w-14" />
           </span>
         </Link>
 
