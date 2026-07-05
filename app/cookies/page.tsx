@@ -53,7 +53,7 @@ export default function CookiesPage() {
             <p className="mt-4 leading-7 text-muted">
               Žiadne analytické ani reklamné sledovacie cookies (napr. Google Analytics, Meta Pixel a
               podobne) tu momentálne nebežia. Ak sa to v budúcnosti zmení, nový skript sa spustí až po tom, čo
-              v banneri vyberieš „Prijať všetky" — voľba „Iba nutné" ho nebude aktivovať.
+              v banneri vyberieš „Prijať všetky“ — voľba „Iba nutné“ ho nebude aktivovať.
             </p>
           </section>
 
