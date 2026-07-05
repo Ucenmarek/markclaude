@@ -15,7 +15,9 @@ export function Services() {
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
             <p className="eyebrow">Služby</p>
-            <h2 className="display-title mt-6">Staviam digitálne produkty s pokojnou presnosťou.</h2>
+            <h2 className="display-title mt-6">
+              Staviam digitálne produkty s pokojnou presnosťou<span className="text-accent">.</span>
+            </h2>
           </div>
 
           <div className="border-t border-white/[0.08]">

@@ -5,12 +5,15 @@ import type { MouseEvent } from "react";
 import { Button } from "@/components/Button";
 import { CodeWindow } from "@/components/CodeWindow";
 import { Glow } from "@/components/Glow";
-import { MCMonogram } from "@/components/MCMonogram";
+import { MarkClaudeLogo } from "@/components/MarkClaudeLogo";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
+import { TechStack } from "@/components/TechStack";
+import { useIntroPlaying } from "@/components/IntroContext";
 
 const headlineLines = ["Moderné weby,", "ktoré majú", "charakter."];
 
 export function Hero() {
+  const playIntro = useIntroPlaying();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const smoothX = useSpring(mouseX, { stiffness: 70, damping: 26, mass: 0.45 });
@@ -37,7 +40,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative min-h-screen overflow-hidden bg-[#09090B] pt-28 sm:pt-32 lg:pt-36"
+      className="relative min-h-screen overflow-hidden bg-[#09090B] pt-[100px]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -57,7 +60,10 @@ export function Hero() {
         style={{ x: logoX, y: logoY }}
         aria-hidden="true"
       >
-        <MCMonogram tone="orange" className="h-full w-full opacity-95 drop-shadow-[0_0_42px_rgba(255,122,26,0.42)]" />
+        <MarkClaudeLogo
+          tone="orange"
+          className="h-full w-full opacity-30 drop-shadow-[0_0_42px_rgba(255,122,26,0.28)]"
+        />
       </motion.div>
 
       <motion.div
@@ -76,14 +82,18 @@ export function Hero() {
 
       <div className="section-shell relative z-10 grid min-h-[calc(100vh-8rem)] items-center gap-20 pb-24 sm:pb-28 lg:grid-cols-[0.88fr_1.12fr] lg:gap-24 lg:pb-32">
         <div className="relative max-w-[42rem] lg:pl-8 xl:pl-14">
-          <h1 className="mt-8 text-[clamp(2.35rem,9.5vw,3.95rem)] font-normal leading-[0.96] tracking-tight text-white sm:text-[4.65rem] lg:text-[5rem] xl:text-[5.45rem]">
+          <h1 className="mt-8 text-[clamp(2.35rem,9.5vw,3.95rem)] font-light leading-[0.96] tracking-tight text-white sm:text-[4.65rem] lg:text-[5rem] xl:text-[5.45rem]">
             {headlineLines.map((line, index) => (
               <motion.span
                 key={line}
                 className="block whitespace-nowrap"
                 initial={{ opacity: 0, y: 32, filter: "blur(10px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ delay: 2.24 + index * 0.12, duration: 0.72, ease: "easeOut" }}
+                transition={{
+                  delay: playIntro ? 2.24 + index * 0.12 : index * 0.06,
+                  duration: 0.72,
+                  ease: "easeOut",
+                }}
               >
                 {index === headlineLines.length - 1 ? (
                   <>
@@ -98,8 +108,8 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 22, filter: "blur(7px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 2.68, duration: 0.62, ease: "easeOut" }}
-            className="mt-9 max-w-[40rem] text-base leading-7 text-muted sm:text-lg sm:leading-8"
+            transition={{ delay: playIntro ? 2.6 : 0.12, duration: 0.62, ease: "easeOut" }}
+            className="mt-7 max-w-[40rem] text-base leading-7 text-muted sm:text-lg sm:leading-8"
           >
             Od prvého návrhu až po posledný riadok kódu tvorím rýchle webové stránky, aplikácie a interné systémy, ktoré pomáhajú firmám rásť.
           </motion.p>
@@ -107,7 +117,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20, filter: "blur(7px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 2.84, duration: 0.58, ease: "easeOut" }}
+            transition={{ delay: playIntro ? 2.9 : 0.22, duration: 0.58, ease: "easeOut" }}
             className="mt-11 flex flex-col gap-3 sm:flex-row"
           >
             <Button href="#projects">Pozrieť projekty</Button>
@@ -115,12 +125,14 @@ export function Hero() {
               Kontaktovať
             </Button>
           </motion.div>
+
+          <TechStack />
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 42, scale: 0.96, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          transition={{ delay: 3.0, duration: 0.82, ease: "easeOut" }}
+          transition={{ delay: playIntro ? 3.0 : 0.28, duration: 0.82, ease: "easeOut" }}
           style={{ x: editorX, y: editorY }}
           className="relative hidden justify-self-end [perspective:1200px] lg:block lg:w-full lg:max-w-[47rem]"
         >
@@ -132,7 +144,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 34, scale: 0.98, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          transition={{ delay: 3.0, duration: 0.72, ease: "easeOut" }}
+          transition={{ delay: playIntro ? 3.0 : 0.28, duration: 0.72, ease: "easeOut" }}
           className="relative lg:hidden"
         >
           <CodeWindow compact />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { CookieConsent } from "@/components/CookieConsent";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sk" className="scroll-smooth">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   );
 }

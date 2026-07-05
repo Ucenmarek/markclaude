@@ -14,7 +14,11 @@ export function Process() {
     <section id="process" className="section-band">
       <div className="section-shell">
         <p className="eyebrow">Proces spolupráce</p>
-        <h2 className="display-title mt-6">Menej krokov. Viac jasnosti v každom z nich.</h2>
+        <h2 className="display-title mt-6">
+          Menej krokov.
+          <br />
+          Viac jasnosti v každom z nich<span className="text-accent">.</span>
+        </h2>
 
         <div className="mt-20 border-t border-white/[0.08]">
           {steps.map(([number, title, text], index) => (

@@ -14,7 +14,9 @@ export function WhyWorkWithMe() {
       <div className="section-shell">
         <div className="mx-auto max-w-5xl text-center">
           <p className="eyebrow">Prečo spolupracovať práve so mnou</p>
-          <h2 className="display-title mx-auto mt-6">Web ako dôkaz remesla, nie ako vyplnená šablóna.</h2>
+          <h2 className="display-title mx-auto mt-6">
+            Web ako dôkaz remesla, nie ako vyplnená šablóna<span className="text-accent">.</span>
+          </h2>
         </div>
 
         <div className="mx-auto mt-20 grid max-w-6xl gap-4 lg:grid-cols-3">

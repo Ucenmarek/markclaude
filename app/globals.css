@@ -56,7 +56,7 @@ body {
   }
 
   .section-band {
-    @apply border-t border-white/[0.08] py-28 sm:py-36 lg:py-44;
+    @apply border-t border-white/[0.08] py-14 sm:py-16 lg:py-20;
   }
 
   .eyebrow {
@@ -65,7 +65,7 @@ body {
   }
 
   .display-title {
-    @apply max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl;
+    @apply max-w-5xl text-4xl font-light tracking-tight text-white sm:text-5xl lg:text-6xl;
   }
 
   .section-copy {
