@@ -80,8 +80,8 @@ export function Hero() {
       <NoiseOverlay />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_74%_48%,rgba(255,122,26,0.15),transparent_40rem),radial-gradient(circle_at_15%_28%,rgba(255,122,26,0.075),transparent_18rem),linear-gradient(180deg,rgba(9,9,11,0.04),rgba(9,9,11,0.9)_95%)]" />
 
-      <div className="section-shell relative z-10 grid min-h-[calc(100vh-8rem)] items-center gap-20 pb-24 sm:pb-28 lg:grid-cols-[0.88fr_1.12fr] lg:gap-24 lg:pb-32">
-        <div className="relative max-w-[42rem] lg:pl-8 xl:pl-14">
+      <div className="section-shell relative z-10 grid min-w-0 min-h-[calc(100vh-8rem)] items-center gap-20 pb-24 sm:pb-28 lg:grid-cols-[0.88fr_1.12fr] lg:gap-24 lg:pb-32">
+        <div className="relative min-w-0 max-w-[42rem] lg:pl-8 xl:pl-14">
           <h1 className="mt-8 text-[clamp(2.35rem,9.5vw,3.95rem)] font-light leading-[0.96] tracking-tight text-white sm:text-[4.65rem] lg:text-[5rem] xl:text-[5.45rem]">
             {headlineLines.map((line, index) => (
               <motion.span
@@ -134,7 +134,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
           transition={{ delay: playIntro ? 3.0 : 0.28, duration: 0.82, ease: "easeOut" }}
           style={{ x: editorX, y: editorY }}
-          className="relative hidden justify-self-end [perspective:1200px] lg:block lg:w-full lg:max-w-[47rem]"
+          className="relative hidden min-w-0 justify-self-end [perspective:1200px] lg:block lg:w-full lg:max-w-[47rem]"
         >
           <div className="origin-center" style={{ transform: "rotateY(-7deg) rotateZ(1.4deg) scale(1.04)" }}>
             <CodeWindow />
@@ -145,7 +145,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 34, scale: 0.98, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
           transition={{ delay: playIntro ? 3.0 : 0.28, duration: 0.72, ease: "easeOut" }}
-          className="relative lg:hidden"
+          className="relative min-w-0 lg:hidden"
         >
           <CodeWindow compact />
         </motion.div>
