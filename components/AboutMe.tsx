@@ -21,7 +21,7 @@ export function AboutMe() {
   return (
     <section
       id="about"
-      className="border-t border-white/[0.08] pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20 lg:pt-12"
+      className="scroll-mt-32 border-t border-white/[0.08] pb-14 pt-8 sm:pb-16 sm:pt-10 lg:pb-20 lg:pt-12"
     >
       <div className="section-shell">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
